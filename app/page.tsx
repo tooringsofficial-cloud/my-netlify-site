@@ -1,23 +1,31 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  ArrowRight, Building2, Pill, Youtube, ChevronRight, 
-  Download, Award, Instagram, Mail, FileText, Phone 
+  Download, Phone, ChevronRight, Pill, Building2, Youtube, 
+  Award, Copy, Check, Share2, MapPin
 } from 'lucide-react';
 
 export default function Home() {
-  
+  const [copied, setCopied] = useState(false);
+
+  // URL 복사 기능
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   // 연락처 저장 기능
   const handleSaveContact = () => {
     const vcard = `BEGIN:VCARD
 VERSION:3.0
-FN:성상현 (PharmaD)
+FN:성상현
 N:성;상현;;;
-ORG:PharmaD & ReaLanguage
+ORG:PharmaD (파마디)
 TITLE:약사 / 공인중개사 / 크리에이터
 TEL;TYPE=CELL:010-5348-2981
-EMAIL:tooringsofiicial@gmail.com
+EMAIL:tooringsofficial@gmail.com
 URL:https://pharmad.netlify.app
 NOTE:약학과 부동산을 잇는 전문가 PharmaD입니다.
 END:VCARD`;
@@ -33,168 +41,124 @@ END:VCARD`;
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans">
+    <div className="min-h-screen bg-gray-50 font-sans pb-12">
       
-      {/* 상단 내비게이션 */}
-      <nav className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <span className="text-xl font-bold text-blue-900">PharmaD</span>
-            <div className="flex space-x-6 text-sm font-medium">
-              <a href="#profile" className="text-gray-600 hover:text-blue-900">프로필</a>
-              <a href="#services" className="text-gray-600 hover:text-blue-900">서비스</a>
-            </div>
-          </div>
+      {/* --- [모바일 최적화: 디지털 명함 섹션] --- */}
+      {/* 배경 그라데이션 (상단 장식) */}
+      <div className="h-48 bg-gradient-to-r from-blue-900 to-blue-700 relative">
+        <div className="absolute top-4 right-4 flex gap-3">
+          <button onClick={handleCopyLink} className="bg-white/20 p-2 rounded-full text-white backdrop-blur-md">
+            {copied ? <Check className="w-5 h-5" /> : <Share2 className="w-5 h-5" />}
+          </button>
         </div>
-      </nav>
+      </div>
 
-      {/* 2. 히어로 섹션 (메인) */}
-      <section className="relative pt-12 pb-24 overflow-hidden text-center px-4">
-        <div className="max-w-4xl mx-auto">
+      {/* 명함 카드 컨테이너 */}
+      <div className="max-w-md mx-auto px-4 -mt-24 relative z-10">
+        <div className="bg-white rounded-3xl shadow-xl overflow-hidden text-center p-6 pb-8 border border-gray-100">
           
-          {/* ★ 프로필 사진 추가된 부분 ★ */}
-          <div className="mb-8 flex justify-center relative">
-            <div className="relative">
-              {/* 사진 테두리 및 그림자 효과 */}
-              <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10">
-                <img 
-                  src="/profile.jpg" 
-                  alt="PharmaD 성상현 프로필" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {/* 뒤쪽 장식용 원 (선택사항) */}
-              <div className="absolute top-0 -right-2 w-12 h-12 bg-blue-500 rounded-full z-0 animate-pulse"></div>
+          {/* 1. 프로필 사진 */}
+          <div className="relative inline-block mb-4">
+            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg mx-auto">
+              <img src="/profile.jpg" alt="PharmaD" className="w-full h-full object-cover" />
             </div>
+            <div className="absolute bottom-1 right-1 bg-green-500 w-6 h-6 rounded-full border-2 border-white" title="활동 중"></div>
           </div>
 
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-bold mb-6">
-            <span className="flex h-2 w-2 rounded-full bg-blue-600 mr-2"></span>
-            Health & Wealth Partner
-          </div>
-          
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-6 leading-tight">
-            건강을 설계하고<br />
-            <span className="text-blue-600">공간의 가치</span>를 더합니다.
-          </h1>
-          
-          <p className="mt-4 text-xl text-gray-500 max-w-2xl mx-auto mb-10">
-            안녕하세요, <strong>PharmaD 성상현</strong>입니다.<br/>
-            약사의 전문성과 공인중개사의 통찰력으로<br/>
-            당신의 삶에 가장 확실한 솔루션을 제안합니다.
-          </p>
+          {/* 2. 핵심 신원 정보 (1초 컷) */}
+          <h1 className="text-2xl font-extrabold text-gray-900 mb-1">성상현 <span className="text-blue-600 text-lg font-bold">PharmaD</span></h1>
+          <p className="text-gray-500 font-medium text-sm mb-4">약사 · 공인중개사 · 투자자산운용사</p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          {/* 3. 소속/태그 (신뢰도) */}
+          <div className="flex flex-wrap justify-center gap-2 mb-6 text-xs text-gray-600 font-medium">
+            <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-100">#건강설계</span>
+            <span className="bg-green-50 text-green-700 px-3 py-1 rounded-full border border-green-100">#약국중개</span>
+            <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full border border-gray-200">#자산관리</span>
+          </div>
+
+          {/* 4. 액션 버튼 (가장 중요 ★) */}
+          <div className="grid grid-cols-2 gap-3 mb-6">
             <button 
               onClick={handleSaveContact}
-              className="px-8 py-4 bg-blue-900 text-white rounded-xl font-bold hover:bg-blue-800 transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="bg-blue-900 text-white py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-800 transition-colors shadow-lg active:scale-95"
             >
-              <Download className="w-5 h-5" /> 연락처 휴대폰에 저장
+              <Download className="w-4 h-4" /> 연락처 저장
             </button>
             <a 
               href="https://open.kakao.com/o/sExample" 
               target="_blank"
-              className="px-8 py-4 bg-yellow-400 text-black rounded-xl font-bold hover:bg-yellow-300 transition-all flex items-center justify-center gap-2 shadow-md"
+              className="bg-yellow-400 text-black py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-yellow-300 transition-colors shadow-md active:scale-95"
             >
-              <Phone className="w-5 h-5" /> 카카오톡 문의하기
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. 자격증 및 전문성 인증 섹션 */}
-      <section id="profile" className="py-12 bg-gray-50 border-y border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-8">Professional Licenses</h2>
-          <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-            <div className="flex items-center gap-2 bg-white px-5 py-3 rounded-full shadow-sm border border-gray-200">
-              <Award className="w-5 h-5 text-blue-600" />
-              <span className="font-bold text-gray-700">약사 면허 보유</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white px-5 py-3 rounded-full shadow-sm border border-gray-200">
-              <Award className="w-5 h-5 text-green-600" />
-              <span className="font-bold text-gray-700">공인중개사 자격</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white px-5 py-3 rounded-full shadow-sm border border-gray-200">
-              <Award className="w-5 h-5 text-purple-600" />
-              <span className="font-bold text-gray-700">투자자산운용사</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. 주요 파이프라인 */}
-      <section id="services" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* 약사 */}
-          <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 group">
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-              <Pill className="w-6 h-6" />
-            </div>
-            <h3 className="text-2xl font-bold mb-3">Pharmacist</h3>
-            <p className="text-gray-500 mb-6">
-              정확한 복약지도와 건강 상담.<br/>
-              약봉투 QR을 통한 스마트 케어.
-            </p>
-            <a href="/health" className="text-blue-600 font-bold flex items-center hover:underline">
-              복약지도 서비스 <ChevronRight className="w-4 h-4 ml-1" />
+              <Phone className="w-4 h-4" /> 1:1 문의
             </a>
           </div>
 
-          {/* 부동산 */}
-          <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 group">
-            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-6 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
-              <Building2 className="w-6 h-6" />
-            </div>
-            <h3 className="text-2xl font-bold mb-3">Real Estate</h3>
-            <p className="text-gray-500 mb-6">
-              약국 입지 분석 및 개국 컨설팅.<br/>
-              전문가의 시선으로 가치를 분석합니다.
-            </p>
-            <span className="text-green-600 font-bold flex items-center cursor-pointer">
-              컨설팅 문의하기 <ChevronRight className="w-4 h-4 ml-1" />
-            </span>
-          </div>
-
-          {/* 리얼랭귀지 */}
-          <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 group">
-            <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-6 text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
-              <Youtube className="w-6 h-6" />
-            </div>
-            <h3 className="text-2xl font-bold mb-3">ReaLanguage</h3>
-            <p className="text-gray-500 mb-6">
-              3개 국어 뉘앙스 완벽 정리.<br/>
-              언어의 미묘한 차이를 알려드립니다.
-            </p>
-            <a href="/realanguage" className="text-red-600 font-bold flex items-center hover:underline">
-              콘텐츠 보러가기 <ChevronRight className="w-4 h-4 ml-1" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. 소셜 링크 (푸터) */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h3 className="text-xl font-bold mb-8">Connect with PharmaD</h3>
-          <div className="flex justify-center gap-6 mb-8">
-            <a href="https://instagram.com" target="_blank" className="p-3 bg-white/10 rounded-full hover:bg-pink-600 transition-all">
-              <Instagram className="w-6 h-6" />
-            </a>
-            <a href="https://youtube.com" target="_blank" className="p-3 bg-white/10 rounded-full hover:bg-red-600 transition-all">
-              <Youtube className="w-6 h-6" />
-            </a>
-            <a href="mailto:pharmad@example.com" className="p-3 bg-white/10 rounded-full hover:bg-blue-600 transition-all">
-              <Mail className="w-6 h-6" />
-            </a>
-            <a href="https://blog.naver.com" target="_blank" className="p-3 bg-white/10 rounded-full hover:bg-green-600 transition-all">
-              <FileText className="w-6 h-6" />
-            </a>
-          </div>
-          <p className="text-gray-500 text-sm">
-            © 2025 PharmaD. All rights reserved.
+          <p className="text-gray-400 text-xs">
+            "신뢰를 바탕으로 가치를 드립니다."
           </p>
         </div>
+      </div>
+
+      {/* --- [상세 정보 섹션: 스크롤하면 나옴] --- */}
+      <div className="max-w-md mx-auto px-4 mt-8 space-y-4">
+        
+        <h2 className="text-sm font-bold text-gray-400 ml-1">PORTFOLIO & SERVICE</h2>
+
+        {/* 메뉴 1: 약사 */}
+        <a href="/health" className="block bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:bg-gray-50 transition-colors">
+          <div className="flex items-center gap-4">
+            <div className="bg-blue-100 p-3 rounded-xl text-blue-600">
+              <Pill className="w-6 h-6" />
+            </div>
+            <div className="text-left">
+              <h3 className="font-bold text-gray-900">약사 서비스</h3>
+              <p className="text-xs text-gray-500">복약지도 & 건강 상담</p>
+            </div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-300" />
+        </a>
+
+        {/* 메뉴 2: 부동산 */}
+        <div className="block bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer">
+          <div className="flex items-center gap-4">
+            <div className="bg-green-100 p-3 rounded-xl text-green-600">
+              <Building2 className="w-6 h-6" />
+            </div>
+            <div className="text-left">
+              <h3 className="font-bold text-gray-900">부동산 컨설팅</h3>
+              <p className="text-xs text-gray-500">약국 입지 & 개국 분석</p>
+            </div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-300" />
+        </div>
+
+        {/* 메뉴 3: ReaLanguage */}
+        <a href="/realanguage" className="block bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:bg-gray-50 transition-colors">
+          <div className="flex items-center gap-4">
+            <div className="bg-red-100 p-3 rounded-xl text-red-600">
+              <Youtube className="w-6 h-6" />
+            </div>
+            <div className="text-left">
+              <h3 className="font-bold text-gray-900">ReaLanguage</h3>
+              <p className="text-xs text-gray-500">3개 국어 뉘앙스 교육</p>
+            </div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-gray-300" />
+        </a>
+
+      </div>
+
+      {/* 하단 정보 */}
+      <footer className="max-w-md mx-auto px-4 mt-12 text-center pb-8">
+        <div className="flex justify-center gap-2 mb-4">
+            <span className="flex items-center gap-1 text-xs text-gray-500 bg-white px-3 py-1 rounded-full border border-gray-200">
+                <Award className="w-3 h-3" /> 약사 면허
+            </span>
+            <span className="flex items-center gap-1 text-xs text-gray-500 bg-white px-3 py-1 rounded-full border border-gray-200">
+                <Award className="w-3 h-3" /> 공인중개사
+            </span>
+        </div>
+        <p className="text-xs text-gray-400">© 2025 PharmaD. All rights reserved.</p>
       </footer>
     </div>
   );
