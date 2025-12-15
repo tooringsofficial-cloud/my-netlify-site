@@ -8,9 +8,8 @@ import {
 
 export default function Home() {
   
-  // 1. 연락처 저장 기능 (vCard 생성 및 다운로드)
+  // 연락처 저장 기능
   const handleSaveContact = () => {
-    // vCard 데이터 생성
     const vcard = `BEGIN:VCARD
 VERSION:3.0
 FN:성상현 (PharmaD)
@@ -18,12 +17,11 @@ N:성;상현;;;
 ORG:PharmaD & ReaLanguage
 TITLE:약사 / 공인중개사 / 크리에이터
 TEL;TYPE=CELL:010-5348-2981
-EMAIL:tooringsofficial@gmail.com
+EMAIL:tooringsofiicial@gmail.com
 URL:https://pharmad.netlify.app
-NOTE:신뢰를 바탕으로 가치를 드립니다
+NOTE:약학과 부동산을 잇는 전문가 PharmaD입니다.
 END:VCARD`;
 
-    // 파일 다운로드 트리거
     const blob = new Blob([vcard], { type: "text/vcard" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -51,9 +49,26 @@ END:VCARD`;
       </nav>
 
       {/* 2. 히어로 섹션 (메인) */}
-      <section className="relative pt-20 pb-24 overflow-hidden text-center px-4">
+      <section className="relative pt-12 pb-24 overflow-hidden text-center px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-bold mb-8">
+          
+          {/* ★ 프로필 사진 추가된 부분 ★ */}
+          <div className="mb-8 flex justify-center relative">
+            <div className="relative">
+              {/* 사진 테두리 및 그림자 효과 */}
+              <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10">
+                <img 
+                  src="/profile.jpg" 
+                  alt="PharmaD 성상현 프로필" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* 뒤쪽 장식용 원 (선택사항) */}
+              <div className="absolute top-0 -right-2 w-12 h-12 bg-blue-500 rounded-full z-0 animate-pulse"></div>
+            </div>
+          </div>
+
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-bold mb-6">
             <span className="flex h-2 w-2 rounded-full bg-blue-600 mr-2"></span>
             Health & Wealth Partner
           </div>
@@ -69,7 +84,6 @@ END:VCARD`;
             당신의 삶에 가장 확실한 솔루션을 제안합니다.
           </p>
 
-          {/* ★ 핵심 기능: 연락처 저장 버튼 */}
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button 
               onClick={handleSaveContact}
@@ -88,12 +102,11 @@ END:VCARD`;
         </div>
       </section>
 
-      {/* 3. 자격증 및 전문성 인증 섹션 (신뢰도 UP) */}
+      {/* 3. 자격증 및 전문성 인증 섹션 */}
       <section id="profile" className="py-12 bg-gray-50 border-y border-gray-100">
         <div className="max-w-5xl mx-auto px-4 text-center">
           <h2 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-8">Professional Licenses</h2>
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-            {/* 자격증 뱃지들 */}
             <div className="flex items-center gap-2 bg-white px-5 py-3 rounded-full shadow-sm border border-gray-200">
               <Award className="w-5 h-5 text-blue-600" />
               <span className="font-bold text-gray-700">약사 면허 보유</span>
@@ -110,7 +123,7 @@ END:VCARD`;
         </div>
       </section>
 
-      {/* 4. 주요 파이프라인 (카드 섹션) */}
+      {/* 4. 주요 파이프라인 */}
       <section id="services" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* 약사 */}
