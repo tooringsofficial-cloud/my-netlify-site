@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { 
   MapPin, Gift, Briefcase, Calculator, Building, 
   BookOpen, Lightbulb, ChevronRight, Star
@@ -8,7 +8,8 @@ import {
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-export default function QRLandingPage() {
+// 1. 실제 내용을 보여주는 컴포넌트 (검색 파라미터 사용)
+function QRLandingContent() {
   const searchParams = useSearchParams();
   // URL에서 동네 이름을 가져오거나 기본값 사용
   const townName = searchParams.get('town') || '대치동'; 
@@ -42,7 +43,6 @@ export default function QRLandingPage() {
                 {/* 이미지 placeholder */}
                 <div className="w-20 h-20 bg-slate-200 rounded-xl shrink-0 overflow-hidden relative">
                     <div className="absolute inset-0 flex items-center justify-center text-slate-400 text-xs font-bold">IMG</div>
-                    {/* 실제 사용 시: <img src="..." alt="..." className="w-full h-full object-cover"/> */}
                 </div>
                 <div>
                     <h3 className="font-bold text-lg text-slate-900">성수 베이글 맛집, {townName} 상륙!</h3>
@@ -123,5 +123,14 @@ export default function QRLandingPage() {
       </footer>
 
     </div>
+  );
+}
+
+// 2. 메인 페이지 컴포넌트 (Suspense로 감싸기)
+export default function QRLandingPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-slate-100 flex items-center justify-center font-bold text-slate-500">로딩중...</div>}>
+      <QRLandingContent />
+    </Suspense>
   );
 }
