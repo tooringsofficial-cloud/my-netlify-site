@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { 
   Download, Phone, Check, Share2, ExternalLink, Mail, ArrowRight, Printer, 
-  MessageCircle, Globe, MessageSquare, Gift, PlayCircle, Youtube 
+  MessageCircle, Globe, MessageSquare, Gift, PlayCircle, Youtube, TrendingUp 
 } from 'lucide-react';
 
 export default function Home() {
@@ -198,7 +198,7 @@ X-SOCIALPROFILE;type=kakao:https://open.kakao.com/o/scgmHJ6h`;
           <h2 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-widest">Services</h2>
           <div className="grid gap-4">
             
-            {/* 1. PharmaD (초록색으로 변경) */}
+            {/* 1. PharmaD */}
             <a href="/health" className="group bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all flex items-start justify-between">
               <div className="flex gap-4">
                 <div className="bg-green-100 p-3 rounded-xl text-green-600 h-fit">
@@ -212,25 +212,25 @@ X-SOCIALPROFILE;type=kakao:https://open.kakao.com/o/scgmHJ6h`;
               <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors" />
             </a>
 
-            {/* 2. 부동산 분석 (파란색으로 변경) */}
-            <div className="group bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all flex items-start justify-between cursor-pointer">
+            {/* 2. PharmAnalysis (네이밍 변경됨) */}
+            <a href="/insight" className="group bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all flex items-start justify-between">
               <div className="flex gap-4">
                 <div className="bg-blue-100 p-3 rounded-xl text-blue-600 h-fit">
-                  <PlayCircle className="w-5 h-5" />
+                  <TrendingUp className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 group-hover:text-blue-700 transition-colors">부동산 분석</h3>
-                  <p className="text-xs text-gray-500 mt-1">중개 및 분석 영상 확인하러 가기</p>
+                  <h3 className="font-bold text-gray-900 group-hover:text-blue-700 transition-colors">PharmAnalysis</h3>
+                  <p className="text-xs text-gray-500 mt-1">부동산 & 약학 인사이트</p>
                 </div>
               </div>
               <ExternalLink className="w-5 h-5 text-gray-300 group-hover:text-blue-600 transition-colors" />
-            </div>
+            </a>
 
-            {/* 3. ReaLanguage (유지) */}
+            {/* 3. ReaLanguage */}
             <a href="/realanguage" className="group bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-red-200 transition-all flex items-start justify-between">
               <div className="flex gap-4">
                 <div className="bg-red-100 p-3 rounded-xl text-red-600 h-fit">
-                  <Youtube className="w-5 h-5" />
+                  <Globe className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 group-hover:text-red-700 transition-colors">ReaLanguage</h3>
