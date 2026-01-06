@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { 
-  Download, Phone, Check, Share2, ExternalLink, Mail, ArrowRight, Printer, 
-  MessageCircle, Globe, MessageSquare, Gift, PlayCircle, Youtube, TrendingUp 
+  Download, Phone, Check, Share2, ExternalLink, Mail, Printer, 
+  MessageCircle, Globe, MessageSquare, Gift, TrendingUp 
 } from 'lucide-react';
 
 export default function Home() {
@@ -58,12 +58,12 @@ VERSION:3.0
 FN:성상현 공인중개사
 N:성;상현;;;
 ORG:PharmaD
-TITLE:약대생 / 공인중개사 / 자산관리사
+TITLE:약학과 6학년 / 공인중개사 / 자산관리사 / 투자자산운용사
 TEL;TYPE=CELL:010-5348-2981
 TEL;TYPE=FAX:0504-279-2981
 EMAIL:tooringsofficial@gmail.com
 URL:https://pharmad.netlify.app
-NOTE:약학과 / 공인중개사 / 자산관리사 / 투자자산운용사
+NOTE:약학과 6학년\n국가공인 공인중개사\n국가공인 자산관리사(FP)\n한국금융투자협회 투자자산운용사
 X-SOCIALPROFILE;type=kakao:https://open.kakao.com/o/scgmHJ6h`;
 
     if (photoBase64) {
@@ -108,11 +108,16 @@ X-SOCIALPROFILE;type=kakao:https://open.kakao.com/o/scgmHJ6h`;
                 <div className="absolute bottom-2 right-2 bg-green-500 w-6 h-6 rounded-full border-4 border-slate-900"></div>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-extrabold mb-2">성상현</h1>
-              <p className="text-blue-300 font-medium text-sm md:text-base mb-6 leading-relaxed">
-                약대생 · 공인중개사<br className="block sm:hidden"/> · 자산관리사 · 투자자산운용사
-              </p>
-              <p className="text-gray-400 text-sm leading-relaxed mb-8">
+              <h1 className="text-3xl md:text-4xl font-extrabold mb-4">성상현</h1>
+              
+              <div className="text-blue-300 font-medium text-sm md:text-base mb-8 leading-relaxed space-y-1">
+                <p>약학과 6학년</p>
+                <p>국가공인 공인중개사</p>
+                <p>국가공인 자산관리사(FP)</p>
+                <p>한국금융투자협회 투자자산운용사</p>
+              </div>
+
+              <p className="text-gray-400 text-sm leading-relaxed mb-8 border-t border-white/10 pt-6">
                 "신뢰를 바탕으로 가치를 드립니다.<br/>
                 약국과 동네 상권을 잇다. PharmaD."
               </p>
@@ -198,35 +203,36 @@ X-SOCIALPROFILE;type=kakao:https://open.kakao.com/o/scgmHJ6h`;
           <h2 className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-widest">Services</h2>
           <div className="grid gap-4">
             
-            {/* 1. PharmaD */}
-            <a href="/health" className="group bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-green-200 transition-all flex items-start justify-between">
+            {/* 1. PharmaD (색상: #298d81) */}
+            <a href="/health" className="group bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-[#298d81]/50 transition-all flex items-start justify-between">
               <div className="flex gap-4">
-                <div className="bg-green-100 p-3 rounded-xl text-green-600 h-fit">
+                <div className="bg-[#298d81]/10 p-3 rounded-xl text-[#298d81] h-fit">
                   <Gift className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">PharmaD</h3>
+                  <h3 className="font-bold text-gray-900 group-hover:text-[#298d81] transition-colors">PharmaD</h3>
                   <p className="text-xs text-gray-500 mt-1">우리 동네 혜택 확인하러 가기</p>
                 </div>
               </div>
-              <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors" />
+              {/* 아이콘 변경: ArrowRight -> ExternalLink */}
+              <ExternalLink className="w-5 h-5 text-gray-300 group-hover:text-[#298d81] transition-colors" />
             </a>
 
-            {/* 2. PharmAnalysis (네이밍 변경됨) */}
-            <a href="/insight" className="group bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all flex items-start justify-between">
+            {/* 2. PharmAnalysis (색상: #296082) */}
+            <a href="/insight" className="group bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-[#296082]/50 transition-all flex items-start justify-between">
               <div className="flex gap-4">
-                <div className="bg-blue-100 p-3 rounded-xl text-blue-600 h-fit">
+                <div className="bg-[#296082]/10 p-3 rounded-xl text-[#296082] h-fit">
                   <TrendingUp className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 group-hover:text-blue-700 transition-colors">PharmAnalysis</h3>
+                  <h3 className="font-bold text-gray-900 group-hover:text-[#296082] transition-colors">PharmAnalysis</h3>
                   <p className="text-xs text-gray-500 mt-1">부동산 & 약학 인사이트</p>
                 </div>
               </div>
-              <ExternalLink className="w-5 h-5 text-gray-300 group-hover:text-blue-600 transition-colors" />
+              <ExternalLink className="w-5 h-5 text-gray-300 group-hover:text-[#296082] transition-colors" />
             </a>
 
-            {/* 3. ReaLanguage */}
+            {/* 3. ReaLanguage (기존 유지) */}
             <a href="/realanguage" className="group bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-red-200 transition-all flex items-start justify-between">
               <div className="flex gap-4">
                 <div className="bg-red-100 p-3 rounded-xl text-red-600 h-fit">
