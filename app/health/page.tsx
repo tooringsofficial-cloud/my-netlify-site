@@ -131,7 +131,7 @@ export default function PharmaDServicePage() {
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
           <div className="flex-1 flex items-center justify-start">
             <Link href="/" className="flex items-center text-slate-500 hover:text-green-700 text-sm font-medium">
-              <ArrowLeft className="w-4 h-4 mr-1" /> 메인으로
+              <ArrowLeft className="w-4 h-4 mr-1" /> 명함
             </Link>
           </div>
           <div className="shrink-0">

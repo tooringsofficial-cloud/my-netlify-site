@@ -37,49 +37,65 @@ export default function Home() {
       return new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
         reader.onloadend = () => {
-            const base64String = reader.result as string;
-            resolve(base64String.split(',')[1]); 
+            const result = reader.result as string;
+            // base64 문자열만 추출 (data:image/jpeg;base64, 부분 제거)
+            const base64String = result.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+            resolve(base64String); 
         };
         reader.onerror = reject;
         reader.readAsDataURL(blob);
       });
     } catch (e) {
+      console.error("이미지 변환 실패", e);
       return null;
     }
   };
 
-  // 연락처 저장 기능
+  // 연락처 저장 기능 (vCard 생성)
   const handleSaveContact = async () => {
     setIsSaving(true);
+    
+    // 프로필 이미지 (public 폴더에 있는 파일)
     const photoBase64 = await getBase64Image('/profile.jpg');
     
-    let vcard = `BEGIN:VCARD
-VERSION:3.0
-FN:성상현 공인중개사
-N:성;상현;;;
-ORG:PharmaD
-TITLE:약학과 6학년 / 공인중개사 / 자산관리사 / 투자자산운용사
-TEL;TYPE=CELL:010-5348-2981
-TEL;TYPE=FAX:0504-279-2981
-EMAIL:tooringsofficial@gmail.com
-URL:https://pharmad.netlify.app
-NOTE:약학과 6학년\n국가공인 공인중개사\n국가공인 자산관리사(FP)\n한국금융투자협회 투자자산운용사
-X-SOCIALPROFILE;type=kakao:https://open.kakao.com/o/scgmHJ6h`;
+    // vCard 3.0 포맷 (아이폰/안드로이드 호환성 고려)
+    let vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'FN;CHARSET=UTF-8:성상현 공인중개사 PharmaD 대표', // 전체 이름
+      'N;CHARSET=UTF-8:성;상현;;공인중개사 PharmaD 대표;', // 성;이름;중간이름;직함;접미사
+      'ORG;CHARSET=UTF-8:PharmaD',
+      'TITLE;CHARSET=UTF-8:약학과 6학년 / 공인중개사 / 자산관리사 / 투자자산운용사',
+      'TEL;TYPE=CELL,VOICE,PREF:010-5348-2981',
+      'TEL;TYPE=FAX:0504-279-2981',
+      'EMAIL;TYPE=WORK,INTERNET:tooringsofficial@gmail.com',
+      'URL;TYPE=WORK:https://pharmad.netlify.app/',
+      'NOTE;CHARSET=UTF-8:약학과 6학년\\n국가공인 공인중개사\\n국가공인 자산관리사(FP)\\n한국금융투자협회 투자자산운용사',
+      'X-SOCIALPROFILE;TYPE=kakao:https://open.kakao.com/o/scgmHJ6h'
+    ];
 
     if (photoBase64) {
-      vcard += `\nPHOTO;ENCODING=b;TYPE=JPEG:${photoBase64}`;
+      // 사진 데이터 추가 (줄바꿈 없이 한 줄로 넣는 것이 호환성에 좋음)
+      vcard.push(`PHOTO;ENCODING=b;TYPE=JPEG:${photoBase64}`);
     }
 
-    vcard += `\nEND:VCARD`;
+    vcard.push('END:VCARD');
 
-    const blob = new Blob([vcard], { type: "text/vcard" });
+    // Blob 생성 (UTF-8)
+    const vcardString = vcard.join('\n');
+    const blob = new Blob([vcardString], { type: "text/vcard;charset=utf-8" });
+    
+    // 파일 다운로드 트리거
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "PharmaD_성상현.vcf";
+    link.setAttribute("download", "PharmaD_성상현.vcf");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    
+    // 메모리 해제
+    setTimeout(() => URL.revokeObjectURL(url), 100);
     setIsSaving(false);
   };
 

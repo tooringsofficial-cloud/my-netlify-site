@@ -161,7 +161,7 @@ export default function InsightPage() {
           <div className="flex items-center gap-4 z-10">
             <Link href="/" className="flex items-center gap-2 p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors font-bold text-sm">
               <ArrowLeft className="w-5 h-5"/>
-              PharmaD 소개
+              명함
             </Link>
           </div>
 
